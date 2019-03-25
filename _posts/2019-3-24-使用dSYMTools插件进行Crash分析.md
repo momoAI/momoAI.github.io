@@ -8,7 +8,8 @@ app难免会发生崩溃，debug时发生的崩溃还好说，我们只要设置
 - 连接设备，通过Xcode直接查看设备的崩溃信息
 - 通过NSException类获取，上传至自己的服务器
 我自己的项目里用的是第三种，这里就主要讲讲通过NSException类获取，并上传至自己的服务器的方式。
-#获取crash信息
+# 获取crash信息
+
 ```
   - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
      NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
@@ -30,11 +31,12 @@ app难免会发生崩溃，debug时发生的崩溃还好说，我们只要设置
       .........
   }
 ```
+
 上传之后在我们的后台就会有crash的记录了:
 ![crashLog](http://upload-images.jianshu.io/upload_images/2427856-b9f5ef3229918e7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 通过以上信息我们可以清晰的看出：crash的原因是字典插入了一个nil的对象，但是对于是哪个文件哪个类哪个方法导致的crash我们一无所知。如果只是根据-[__NSPlaceholderDictionary initWithObjects:forKeys:count:]: attempt to insert nil object from objects[0]这个错误类型去代码里查找，那无异于大海捞针。那我们如何根据以上信息准确定位crash的代码呢？
-#crash分析
+# crash分析
 网上关于crash分析的资料有很多，这里我主要分享下如何通过dSYMTools插件分析crash。
 - 获取dSYM 符号集
 符号集是我们对APP进行打包之后，和.app文件同级的后缀名为.dSYM的文件。
