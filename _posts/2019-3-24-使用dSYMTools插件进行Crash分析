@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: 使用dSYMTools插件进行Crash分析
 ---
 
